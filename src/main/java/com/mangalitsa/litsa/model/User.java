@@ -23,6 +23,9 @@ public class User{
     @Column(nullable = false, name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
 
+    public User(){}
+    public User(String displayName, String email) {}
+
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
     public String getDisplayName() {return displayName;}

@@ -21,6 +21,13 @@ public class FavouritePlace {
     @Column(nullable = false)
     private Double longitude;
 
+    public FavouritePlace() {}
+
+    public FavouritePlace(String placeName, Double latitude, Double longitude) {
+        this.placeName = placeName;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}

@@ -26,6 +26,12 @@ public class PasswordResetToken {
     @Column(nullable = false)
     private Boolean used = false;
 
+    public PasswordResetToken() {}
+    public PasswordResetToken(UUID resetToken, User user) {
+        this.resetToken = resetToken;
+        this.user = user;
+    }
+
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}

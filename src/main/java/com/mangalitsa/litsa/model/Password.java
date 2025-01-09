@@ -28,6 +28,11 @@ public class Password {
     @Column(nullable = false)
     private Boolean active = true;
 
+    public Password() {}
+    public Password(User user, String passwordHash) {
+        this.user = user;
+        this.passwordHash = passwordHash;
+    }
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}

@@ -23,6 +23,12 @@ public class UserFavouritePlace {
     @Column(name = "added_at", nullable = false)
     private LocalDateTime addedAt = LocalDateTime.now();
 
+    public UserFavouritePlace() {}
+    public UserFavouritePlace(User user, FavouritePlace favouritePlace) {
+        this.user = user;
+        this.favouritePlace = favouritePlace;
+    }
+
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
     public User getUser() {return user;}
