@@ -1,9 +1,10 @@
 package com.mangalitsa.litsa.controllers;
 
+import com.mangalitsa.litsa.controllers.model.ConfirmPasswordResetRequest;
 import com.mangalitsa.litsa.controllers.model.PasswordResetRequest;
-import com.mangalitsa.litsa.controllers.model.UserResponse;
 import com.mangalitsa.litsa.services.PasswordResetTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +16,14 @@ public class PasswordController {
 
 
     @PostMapping("/request-password-reset")
-    public void requestPasswordReset(@RequestBody PasswordResetRequest request) {
+    public ResponseEntity<Void> requestPasswordReset(@RequestBody PasswordResetRequest request) {
         passwordResetTokenService.resetPassword(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(@RequestBody ConfirmPasswordResetRequest request){
+        passwordResetTokenService.confirmResetPassword(request);
+        return ResponseEntity.ok().build();
     }
 }
