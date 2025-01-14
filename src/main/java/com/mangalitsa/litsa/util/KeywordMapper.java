@@ -20,7 +20,7 @@ public class KeywordMapper {
                 "sculpture",
                 "cultural_center"
         ));
-        KEYWORD_TO_TYPES.put("Entertainment", Arrays.asList(
+        KEYWORD_TO_TYPES.put("entertainment", Arrays.asList(
                 "adventure_sports_center",
                 "amusement_center",
                 "amusement_park",
@@ -70,7 +70,7 @@ public class KeywordMapper {
                 "wildlife_refuge",
                 "zoo"
         ));
-        KEYWORD_TO_TYPES.put("Health and Wellness", Arrays.asList(
+        KEYWORD_TO_TYPES.put("health and wellness", Arrays.asList(
                 "massage",
                 "sauna",
                 "skin_care_clinic",
@@ -79,7 +79,7 @@ public class KeywordMapper {
                 "wellness_center",
                 "yoga_studio"
         ));
-        KEYWORD_TO_TYPES.put("Sports", Arrays.asList(
+        KEYWORD_TO_TYPES.put("sports", Arrays.asList(
                 "arena",
                 "athletic_field",
                 "fishing_charter",
@@ -96,7 +96,7 @@ public class KeywordMapper {
                 "swimming_pool"
         ));
 
-        KEYWORD_TO_TYPES.put("Nature", Arrays.asList(
+        KEYWORD_TO_TYPES.put("nature", Arrays.asList(
                 "national_park",
                 "park",
                 "botanical_garden",
@@ -106,17 +106,17 @@ public class KeywordMapper {
                 "garden",
                 "hiking_area"
         ));
-        KEYWORD_TO_TYPES.put("Religion", Arrays.asList(
+        KEYWORD_TO_TYPES.put("religion", Arrays.asList(
                 "church",
                 "hindu_temple",
                 "mosque",
                 "synagogue"
         ));
-        KEYWORD_TO_TYPES.put("Books", Arrays.asList(
+        KEYWORD_TO_TYPES.put("books", Arrays.asList(
                 "library",
                 "book_store"
         ));
-        KEYWORD_TO_TYPES.put("Food", Arrays.asList(
+        KEYWORD_TO_TYPES.put("food", Arrays.asList(
                 "acai_shop",
                 "afghani_restaurant",
                 "african_restaurant",
@@ -182,7 +182,7 @@ public class KeywordMapper {
                 "vietnamese_restaurant",
                 "wine_bar"
         ));
-        KEYWORD_TO_TYPES.put("NightLife", Arrays.asList(
+        KEYWORD_TO_TYPES.put("nightlife", Arrays.asList(
                 "bar",
                 "bar_and_grill",
                 "comedy_club",
