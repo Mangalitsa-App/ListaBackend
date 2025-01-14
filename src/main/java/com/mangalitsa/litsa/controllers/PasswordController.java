@@ -21,7 +21,7 @@ public class PasswordController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/reset-password")
+    @PostMapping("/reset-password")
     public ResponseEntity<Void> resetPassword(@RequestBody ConfirmPasswordResetRequest request){
         passwordResetTokenService.confirmResetPassword(request);
         return ResponseEntity.ok().build();
