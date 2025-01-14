@@ -13,6 +13,7 @@ import com.mangalitsa.litsa.repositories.PasswordRepository;
 import com.mangalitsa.litsa.repositories.PasswordResetTokenRepository;
 import com.mangalitsa.litsa.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,7 +25,9 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
 
     private static final String BASE_URL = "https://api.mailgun.net/";
     private static final String EMAIL_FROM = "mailgun@sandbox3d27d0c4d7254d70abd9c7b653062e3d.mailgun.org";
-    private final String API_KEY = "3db0c10f74a745fe1c74b193e5d6632b-7113c52e-421ea02a";
+
+    @Value("${mailgun.api-key}")
+    private String API_KEY;
 
     @Autowired
     PasswordResetTokenRepository passwordResetTokenRepository;
