@@ -1,5 +1,6 @@
 package com.mangalitsa.litsa.controllers;
 
+import com.mangalitsa.litsa.controllers.dto.PlaceApiResponse;
 import com.mangalitsa.litsa.controllers.dto.PlacesApiResponse;
 import com.mangalitsa.litsa.controllers.dto.PlacesRequest;
 import com.mangalitsa.litsa.services.PlacesService;
@@ -50,7 +51,7 @@ public class PlaceController {
         return placesService.getNearbyPlaces(requestDto);
     }
     @GetMapping("/{id}")
-    public PlacesApiResponse getPlaceDetails(@PathVariable("id") String placeId) {
+    public PlaceApiResponse getPlaceDetails(@PathVariable("id") String placeId) {
         return placesService.getPlaceDetails(placeId);
     }
 

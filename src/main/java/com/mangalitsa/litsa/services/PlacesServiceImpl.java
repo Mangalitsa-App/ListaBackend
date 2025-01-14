@@ -1,19 +1,18 @@
 package com.mangalitsa.litsa.services;
 
 import com.mangalitsa.litsa.controllers.dao.PlacesDao;
+import com.mangalitsa.litsa.controllers.dto.PlaceApiResponse;
 import com.mangalitsa.litsa.controllers.dto.PlacesApiResponse;
 import com.mangalitsa.litsa.controllers.dto.PlacesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 @Service
 public class PlacesServiceImpl implements PlacesService {
-    private static final Logger log = LoggerFactory.getLogger(PlacesServiceImpl.class);
-
+//TODO: CLEAN AND RESTRUCTURE THE CODE, PROTECT KEYS
 
     private final PlacesDao placesDao;
     private static final String BASE_URL = "https://places.googleapis.com/v1/places:searchNearby";
@@ -48,6 +47,19 @@ public class PlacesServiceImpl implements PlacesService {
                 .block();
     }
 
+    @Override
+    public PlaceApiResponse getPlaceDetails(String placeId) {
+        String apiKey = "AIzaSyC1jZ-g7RoxlkO3Qf4ulH_e4hOHsrD4n20";
+        PlaceApiResponse response = webClient.get()
+                .uri("https://places.googleapis.com/v1/places/{placeId}", placeId)
+                .header("X-Goog-Api-Key", apiKey)
+                .header("X-Goog-FieldMask", "id,displayName")
+                .retrieve()
+                .bodyToMono(PlaceApiResponse.class)
+                .block();
+        return response;
+    }
 
 
 }
+
