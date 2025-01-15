@@ -18,12 +18,10 @@ public class PasswordController {
 
     @Autowired
     PasswordResetTokenService passwordResetTokenService;
-    @Autowired
-    EmailSender emailSender;
 
 
     @PostMapping("/request-password-reset")
-    public ResponseEntity<Void> requestPasswordReset(@RequestBody PasswordResetRequest request) {
+    public ResponseEntity<Void> requestPasswordReset(@RequestBody PasswordResetRequest request) throws MessagingException {
         passwordResetTokenService.resetPassword(request);
         return ResponseEntity.ok().build();
     }
@@ -34,9 +32,4 @@ public class PasswordController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/sendemail")
-    public String sendEmail() throws AddressException, MessagingException, IOException {
-        emailSender.sendEmail();
-        return "Email sent successfully";
-    }
 }

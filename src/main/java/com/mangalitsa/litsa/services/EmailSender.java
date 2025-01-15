@@ -3,31 +3,26 @@ package com.mangalitsa.litsa.services;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.Properties;
+import java.util.UUID;
 
 @Service
 public class EmailSender {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendEmail() throws MessagingException
+    public void sendEmail(UUID randomToken, String email) throws MessagingException
     {
-        String htmlContent = "Hi %s, <br /><br />Welcome to <b>MyCompany</b>. <br />Your UserID is: <b>%s</b> and Password is: <b>%s</b><br /><h5>This is system generated password. You can change it anytime after login.</h5><h5>Please do not share this credential with anybody else.</h5><br />With regards,<br />MyCompany";
-        htmlContent = String.format(htmlContent, "Nesrin", "userid", "random pass");
+        String content = "Click the link below to reset your password:\n\nhttp://localhost:8080/reset-password?email=" + email + "&token=" + randomToken;
+        String subject = "Reset Password";;
 
-        String subject = "Welcome %s (%s) on successful registration";
-        subject = String.format(subject, "Nesrin", "userid");
-
-
-        MimeMessage message = mailSender.createMimeMessage();
-        message.setRecipients(MimeMessage.RecipientType.TO, "mathteacher120990@gmail.com");
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
         message.setSubject(subject);
-        message.setContent(htmlContent, "text/html; charset=utf-8");
+        message.setText(content);
         mailSender.send(message);
     }
 }

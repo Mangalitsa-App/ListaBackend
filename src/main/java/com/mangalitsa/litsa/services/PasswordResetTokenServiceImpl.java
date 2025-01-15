@@ -1,9 +1,5 @@
 package com.mangalitsa.litsa.services;
 
-import com.mailgun.api.v3.MailgunMessagesApi;
-import com.mailgun.client.MailgunClient;
-import com.mailgun.model.message.Message;
-import com.mailgun.model.message.MessageResponse;
 import com.mangalitsa.litsa.controllers.model.ConfirmPasswordResetRequest;
 import com.mangalitsa.litsa.controllers.model.PasswordResetRequest;
 import com.mangalitsa.litsa.model.Password;
@@ -12,6 +8,7 @@ import com.mangalitsa.litsa.model.User;
 import com.mangalitsa.litsa.repositories.PasswordRepository;
 import com.mangalitsa.litsa.repositories.PasswordResetTokenRepository;
 import com.mangalitsa.litsa.repositories.UserRepository;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +19,6 @@ import java.util.UUID;
 @Service
 public class PasswordResetTokenServiceImpl implements PasswordResetTokenService {
 
-    private static final String BASE_URL = "https://api.mailgun.net/";
-    private static final String EMAIL_FROM = "mailgun@sandbox3d27d0c4d7254d70abd9c7b653062e3d.mailgun.org";
-    private final String API_KEY = "3db0c10f74a745fe1c74b193e5d6632b-7113c52e-421ea02a";
-
     @Autowired
     PasswordResetTokenRepository passwordResetTokenRepository;
 
@@ -35,8 +28,11 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
     @Autowired
     PasswordRepository passwordRepository;
 
+    @Autowired
+    EmailSender emailSender;
+
     @Override
-    public void resetPassword(PasswordResetRequest request) {
+    public void resetPassword(PasswordResetRequest request) throws MessagingException {
         Optional<User> optionalUser = userRepository.findByEmail(request.email());
 
         if (optionalUser.isEmpty()) {
@@ -50,18 +46,7 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
             passwordResetToken.setExpiresAt(LocalDateTime.now().plusMinutes(15));
             passwordResetTokenRepository.save(passwordResetToken);
 
-            MailgunMessagesApi api = MailgunClient.config(BASE_URL, API_KEY)
-                    .createApi(MailgunMessagesApi.class);
-
-            Message message = Message.builder()
-                    .from(EMAIL_FROM)
-                    .to(user.getEmail())
-                    .subject("Password Reset")
-                    .text("Click the link below to reset your password:\n"+ "\nhttp://litsaDB.com?email=" + user.getEmail() + "&token=" + randomToken)
-                    .build();
-
-            MessageResponse messageResponse = api.sendMessage("sandbox3d27d0c4d7254d70abd9c7b653062e3d.mailgun.org", message);
-            System.out.println(messageResponse);
+            emailSender.sendEmail(randomToken, user.getEmail());
         }
     }
 
