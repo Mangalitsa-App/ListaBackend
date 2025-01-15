@@ -1,4 +1,4 @@
-package com.mangalitsa.litsa.controllers.dto;
+package com.mangalitsa.litsa.controllers.model;
 
 import java.util.List;
 

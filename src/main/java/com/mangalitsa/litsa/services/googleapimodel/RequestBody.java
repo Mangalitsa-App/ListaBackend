@@ -1,18 +1,14 @@
-package com.mangalitsa.litsa.controllers.dao;
+package com.mangalitsa.litsa.services.googleapimodel;
 
-import com.mangalitsa.litsa.controllers.dto.PlacesRequest;
-import org.springframework.stereotype.Repository;
+
+import com.mangalitsa.litsa.controllers.model.PlacesRequest;
+import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
-
-
-@Repository
-public class PlacesDaoImpl implements PlacesDao {
-
-
-
-    @Override
+@Component
+public class RequestBody {
     public String buildRequestBody(PlacesRequest request) {
         double latitude = request.getLatitude();
         double longitude = request.getLongitude();
@@ -48,5 +44,4 @@ public class PlacesDaoImpl implements PlacesDao {
         return sb.toString();
 
     }
-    }
-
+}
