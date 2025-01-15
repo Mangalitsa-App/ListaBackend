@@ -6,6 +6,7 @@ import com.mangalitsa.litsa.services.googleapimodel.Place;
 import com.mangalitsa.litsa.services.googleapimodel.PlacesApiResponse;
 import com.mangalitsa.litsa.services.googleapimodel.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriBuilder;
@@ -18,8 +19,11 @@ public class PlaceServiceImpl implements PlaceService {
     private final RequestBody requestBody;
     private final WebClient webClient;
     private static final String BASE_URL = "https://places.googleapis.com/v1/places:searchNearby";
-    private static final String  API_KEY = "AIzaSyC1jZ-g7RoxlkO3Qf4ulH_e4hOHsrD4n20";
 
+
+
+    @Value("${google.places.api.key}")
+    private String apiKey;
     @Autowired
     public PlaceServiceImpl(RequestBody requestBody, WebClient.Builder webclient) {
         this.requestBody = requestBody;
@@ -35,9 +39,9 @@ public class PlaceServiceImpl implements PlaceService {
 
 
         PlacesApiResponse response = webClient.post()
-                .uri(UriBuilder::build)
+               .uri(UriBuilder::build)
                 .header("Content-Type", "application/json")
-                .header("X-Goog-Api-Key", API_KEY)
+                .header("X-Goog-Api-Key", apiKey)
                 .header("X-Goog-FieldMask", "places.displayName,places.id,places.formattedAddress," +
                         "places.websiteUri,places.priceLevel,places.types,places.photos")
                 .bodyValue(request)
