@@ -4,6 +4,7 @@ import com.mangalitsa.litsa.controllers.model.AuthResponse;
 import com.mangalitsa.litsa.controllers.model.AuthRequest;
 import com.mangalitsa.litsa.controllers.model.NewUserRequest;
 import com.mangalitsa.litsa.controllers.model.UserResponse;
+import com.mangalitsa.litsa.services.auth.AuthenticationService;
 import com.mangalitsa.litsa.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,18 +20,21 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    AuthenticationService authenticationService;
 
     @GetMapping
     public UserResponse getUser() {
         return null;// TODO
     }
 
-    @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest body) {
-        return null; // TODO
+    @PostMapping("/auth/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+        AuthResponse authResponse = authenticationService.authenticate(request);
+        return ResponseEntity.ok(authResponse);
     }
 
-    @PostMapping
+    @PostMapping("/auth/signup")
     public ResponseEntity<Void> signUp(@RequestBody NewUserRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
         userService.signUp(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();

@@ -1,29 +1,17 @@
 package com.mangalitsa.litsa.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
-import java.util.Arrays;
 
 @Service
 public class PasswordServiceImpl implements PasswordService {
 
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
     @Override
-    public String hashPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 1000, 128);
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-
-        byte[] hash = factory.generateSecret(spec).getEncoded();
-
-        return Arrays.toString(hash);
+    public String hashPassword(String password) {
+        return passwordEncoder.encode(password);
     }
 }
