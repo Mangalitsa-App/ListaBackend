@@ -1,6 +1,7 @@
 package com.mangalitsa.litsa.services;
 
 import com.mangalitsa.litsa.controllers.model.NewUserRequest;
+import com.mangalitsa.litsa.controllers.model.UserResponse;
 import com.mangalitsa.litsa.model.Password;
 import com.mangalitsa.litsa.model.User;
 import com.mangalitsa.litsa.repositories.PasswordRepository;
@@ -23,6 +24,13 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     PasswordService passwordService;
+
+    @Override
+    public UserResponse getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow();
+        UserResponse response = new UserResponse(user.getId() , user.getEmail() , user.getDisplayName());
+        return response;
+    }
 
     @Override
     public void signUp(NewUserRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
