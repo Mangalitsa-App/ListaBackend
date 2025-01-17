@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Table(name = "user_favourite_places", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"user_id", "google_place_id"})
 })
-public class UserFavouritePlace {
+public class Favourites {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +23,9 @@ public class UserFavouritePlace {
     @Column(name = "added_at", nullable = false)
     private LocalDateTime addedAt = LocalDateTime.now();
 
-    public UserFavouritePlace() {}
+    public Favourites() {}
 
-    public UserFavouritePlace(User user, String googlePlaceId) {
+    public Favourites(User user, String googlePlaceId) {
         this.user = user;
         this.googlePlaceId = googlePlaceId;
     }

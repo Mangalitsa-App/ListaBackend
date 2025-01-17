@@ -1,38 +1,48 @@
 package com.mangalitsa.litsa.controllers;
 
-import com.mangalitsa.litsa.controllers.model.FavouriteRequest;
-import com.mangalitsa.litsa.controllers.model.FavouriteResponse;
+import com.mangalitsa.litsa.model.Favourites;
+import com.mangalitsa.litsa.services.FavouritesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static java.util.Collections.emptyList;
 
 @RestController
 @RequestMapping("/api/v1/favourites")
 public class FavouritesController {
 
-    @GetMapping
-    public List<FavouriteResponse> getFavourites() {
-        return emptyList(); //TODO
+    private final FavouritesService favouritesService;
+
+    @Autowired
+    public FavouritesController(FavouritesService favouritesService) {
+        this.favouritesService = favouritesService;
     }
 
-    @GetMapping("/{id}")
-    public FavouriteResponse getFavourite(@PathVariable String id) {
-        return null; //TODO
+    @GetMapping
+    public ResponseEntity<List<Favourites>> getFavourites() {
+        List<Favourites> favourites = favouritesService.getAllFavourites();
+        if (favourites.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(favourites);
     }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public FavouriteResponse addFavourite(@RequestBody FavouriteRequest body) {
-        return null; //TODO
+    public HttpStatus addFavourite(@RequestBody Favourites body) {
+        favouritesService.addFavourite(body);
+        return HttpStatus.CREATED;
+
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFavourite(@PathVariable String id) {
-        // TODO
+    public HttpStatus deleteFavourite(@PathVariable String id) {
+        favouritesService.deleteFavourite(id);
+        return HttpStatus.NO_CONTENT;
     }
 
 }

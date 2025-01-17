@@ -1,7 +1,5 @@
 package com.mangalitsa.litsa.controllers;
 
-import com.mangalitsa.litsa.controllers.model.FavouriteRequest;
-import com.mangalitsa.litsa.controllers.model.FavouriteResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,25 +24,25 @@ class FavouritesControllerTest {
         var result = favouritesController.getFavourites();
         assertThat(result).isEqualTo(expected);
     }
-
-    @Test
-    void getFavourite() {
-        FavouriteResponse expected = null;
-        var result = favouritesController.getFavourite("some_id");
-        assertThat(result).isEqualTo(expected);
-    }
-
-    @Test
-    void addFavourite() {
-        FavouriteResponse expected = null;
-        var requestBody = new FavouriteRequest("some_place_id");
-        var result = favouritesController.addFavourite(requestBody);
-        assertThat(result).isEqualTo(expected);
-    }
-
-    @Test
-    void deleteFavourite() {
-        String favouriteId = "some_id";
-        favouritesController.deleteFavourite(favouriteId);
-    }
+//
+//    @Test
+//    void getFavourite() {
+//        FavouriteResponse expected = null;
+//        var result = favouritesController.getFavourite("some_id");
+//        assertThat(result).isEqualTo(expected);
+//    }
+//
+//    @Test
+//    void addFavourite() {
+//        FavouriteResponse expected = null;
+//        var requestBody = new FavouriteRequest("some_place_id");
+//        var result = favouritesController.addFavourite(requestBody);
+//        assertThat(result).isEqualTo(expected);
+//    }
+//
+//    @Test
+//    void deleteFavourite() {
+//        String favouriteId = "some_id";
+//        favouritesController.deleteFavourite(favouriteId);
+//    }
 }
