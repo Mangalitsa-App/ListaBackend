@@ -1,5 +1,6 @@
 package com.mangalitsa.litsa.services;
 
+import com.mangalitsa.litsa.controllers.model.ChangeUserInfoRequest;
 import com.mangalitsa.litsa.controllers.model.NewUserRequest;
 import com.mangalitsa.litsa.controllers.model.UserResponse;
 import com.mangalitsa.litsa.model.Password;
@@ -49,5 +50,13 @@ public class UserServiceImpl implements UserService {
         password.setCreatedAt(LocalDateTime.now());
         password.setPasswordHash(hashedPassword);
         passwordRepository.save(password);
+    }
+
+    @Override
+    public void updateInfo(Long id, ChangeUserInfoRequest request) {
+        User user = userRepository.findById(id).orElseThrow();
+        user.setDisplayName(request.displayName());
+        user.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(user);
     }
 }

@@ -18,7 +18,7 @@ public class FavouritesServiceImpl implements FavouritesService {
     }
 
     @Override
-    public Optional<Favourites> deleteFavourite(long id) {
+    public Optional<Favourites> deleteFavourite(String id) {
         return Optional.empty();
     }
 }

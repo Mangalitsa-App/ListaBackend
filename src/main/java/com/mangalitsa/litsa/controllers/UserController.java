@@ -1,7 +1,7 @@
 package com.mangalitsa.litsa.controllers;
 
+import com.mangalitsa.litsa.controllers.model.ChangeUserInfoRequest;
 import com.mangalitsa.litsa.controllers.model.UserResponse;
-import com.mangalitsa.litsa.services.auth.AuthenticationService;
 import com.mangalitsa.litsa.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -25,7 +27,9 @@ public class UserController {
         return new ResponseEntity<>(response , HttpStatus.OK);
     }
 
-
-    // TODO: PATCH /{field}
-    //       maybe also PUT?
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> updateUserInfo(@PathVariable Long id , @RequestBody ChangeUserInfoRequest request){
+        userService.updateInfo(id , request);
+        return ResponseEntity.ok().build();
+    }
 }
