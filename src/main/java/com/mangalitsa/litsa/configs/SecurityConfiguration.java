@@ -33,7 +33,7 @@ public class SecurityConfiguration {
         http.csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/user/auth/**")
+                .requestMatchers("/api/v1/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
